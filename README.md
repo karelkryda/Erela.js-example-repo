@@ -34,6 +34,11 @@ Set up your Discord token in the **config.json** file
 - Run the **Lavalink** file by running `npm run lavalink` in a **Terminal window**.
 - Finally run **bot** by running `npm run bot` in a **new Terminal window**.
 
+## Possible custom adjustments
+You can change commands variables
+- You need to change them in **main.js** file on **line 83**
+```await command.execute(...);```
+- And in **each command file** (for example play.js or pause.js) on line `execute(...)` **below description**
 ## Plugins
 
 You can use plugins below to extend Erela.js' features easily.
