@@ -1,6 +1,6 @@
 {
   "token": "YOUR_BOT_TOKEN_HERE",
-  "lavalink_host": "LAVALINK_HOST_HERE",
-  "lavalink_port": LAVALINK_PORT_HERE,
-  "lavalink_password": "LAVALINK_PASSWORD_HERE"
+  "lavalink_host": "localhost",
+  "lavalink_port": 80,
+  "lavalink_password": "youshellnotpass"
 }
