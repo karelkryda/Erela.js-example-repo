@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Discord music bot",
   "main": "main.js",
+  "scripts": {
+    "lavalink": "java -jar Lavalink.jar",
+    "bot": "node ."
+  },
   "author": "Karel Krýda",
   "license": "ISC",
   "dependencies": {
