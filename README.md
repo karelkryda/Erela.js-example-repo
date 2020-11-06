@@ -1,5 +1,5 @@
 # Erela.js-example-repo
-Discord music bot with Erela.js (for Lavalink connection)
+Example of using Erela.js with Lavalink for music bots written in Discord.js
 
 ## Documentation & Guides of Erela.js
 
