@@ -29,7 +29,7 @@ It will automatically create **node_modules** folder and download required depen
 
 ## Getting Started
 
-Set up your Discord token in the **config.json** file
+Set up your Discord token in the **config.json** file and set up your prefix in the **main.js** file on **line 72**
 
 - Run the **Lavalink** file by running `npm run lavalink` in a **Terminal window**.
 - Finally run **bot** by running `npm run bot` in a **new Terminal window**.
