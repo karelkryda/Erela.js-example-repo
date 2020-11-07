@@ -69,7 +69,7 @@ client.on("message", async message => {
     message.content = message.content.replace(/\s+/g, ' ').trim();
     if (message.author.bot) return;
 
-    let prefix = "PREFIX_HERE"
+    let prefix = "/"
     var serverQueue = client.manager.players.get(message.guild.id);
 
     if (!message.content.startsWith(prefix)) return;
