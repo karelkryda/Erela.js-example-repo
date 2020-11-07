@@ -4,7 +4,6 @@ module.exports = {
     description: "Connect to voice channel",
     async execute(message, prefix, serverQueue, client) {
         const voiceChannel = message.member.voice.channel;
-
         if (!serverQueue) {
             const player = client.manager.create({
                 selfDeafen: true,
@@ -13,9 +12,7 @@ module.exports = {
                 voiceChannel: message.member.voice.channel.id,
                 textChannel: message.channel.id,
             });
-
-            player.connect();
-            
+            player.connect();            
             message.channel.send("Joined");
         }
     }
