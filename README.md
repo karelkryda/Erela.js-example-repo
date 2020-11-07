@@ -29,16 +29,24 @@ It will automatically create **node_modules** folder and download required depen
 
 ## Getting Started
 
-Set up your Discord token in the **config.json** file and set up your prefix in the **main.js** file on **line 72**
+Set up your Discord token in the **config.json** file and set up your prefix in the **main.js** file on **line 72** (default is **/**)
 
 - Run the **Lavalink** file by running `npm run lavalink` in a **Terminal window**.
 - Finally run **bot** by running `npm run bot` in a **new Terminal window**.
 
 ## Possible custom adjustments
-You can change commands variables
-- You need to change them in **main.js** file on **line 83**
-```await command.execute(...);```
-- And in **each command file** (for example play.js or pause.js) on line `execute(...)` **below description**
+### You can change commands variables
+- You need to change them in **main.js** file on **line 85**
+```await command.run(...);```
+- And in **each command file** (for example play.js or pause.js) on line `module.exports.run = (...)`
+### You can change bot status
+- You need to change that in **main.js** file on **line 55**
+```name: "/help",```
+### You can change command requirements
+- You need to change them in **command file** (for example play.js or pause.js) on line `module.exports.requirements = {...}`
+  - ownerOnly - this command can run only bot owner
+    - You need to change [your id](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-) in **main.js** file on **line 82** `message.author.id !== 123456789`
+  - userConnection - this command requires the user to connect to a voice channel
 ## Plugins
 
 You can use plugins below to extend Erela.js' features easily.
