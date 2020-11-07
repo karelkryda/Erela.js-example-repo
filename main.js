@@ -61,7 +61,7 @@ client.once("ready", () => {
 const commandFiles = fs.readdirSync(join(__dirname, "commands")).filter((file) => file.endsWith(".js"));
 for (const file of commandFiles) {
   const command = require(join(__dirname, "commands", `${file}`));
-  client.commands.set(command.name, command);
+  if (command.help) client.commands.set(command.help.name, command);
 }
 
 client.on("message", async message => {
@@ -76,11 +76,13 @@ client.on("message", async message => {
 
     message.content = message.content.substring(prefix.length);
 
-    const command = client.commands.get(message.content.split(' ')[0]) || client.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(message.content.split(' ')[0]));
+    const command = client.commands.get(message.content.split(' ')[0]) || client.commands.find((cmd) => cmd.help.aliases && cmd.help.aliases.includes(message.content.split(' ')[0]));
 
     if (!command) return;
+    if (command.requirements.ownerOnly && message.author.id !== 123456789) return message.channel.send('This command is for owner only...');
+    if (command.requirements.userConnection && !message.member.voice.channel) return message.channel.send("You have to be in a voice channel to use this command");
 
-    await command.execute(message, prefix, serverQueue, client); //PUT YOUR VARIABLES HERE
+    await command.run(message, prefix, serverQueue, client); //PUT YOUR VARIABLES HERE
   }
   catch (error) {
     console.log("Error: " + error);
