@@ -6,15 +6,15 @@ const { Manager } = require("erela.js");
 
 // Variables
 const client = new Discord.Client();
+client.commands = new Discord.Collection();
+
 // Initiate the Manager with some options and listen to some events.
 client.manager = new Manager({
-  // Pass an array of node. Note: You do not need to pass any if you are using the default values (ones shown below).
   nodes: [
-    { host: 'URL', port: PORT, password: 'PASSWORD' },
-    { host: 'URL', port: PORT, password: 'PASSWORD' },
+    { host: 'localhost', port: 80, password: 'youshellnotpass' }, //FOR NOW USE LOCAL LAVALINK
+    //{ host: 'URL', port: PORT, password: 'PASSWORD' }, //Lavalink node 1
+    //{ host: 'URL', port: PORT, password: 'PASSWORD' }, //Lavalink node 2
   ],
-  // A send method to send data to the Discord WebSocket using your library.
-  // Getting the shard for the guild and sending the data to the WebSocket.
   send(id, payload) {
     const guild = client.guilds.cache.get(id);
     if (guild) guild.shard.send(payload);
@@ -34,10 +34,7 @@ client.manager = new Manager({
 
     player.destroy();
   })
-  .on("playerMove", (player, oldChannel, newChannel) => {
-    if (!newChannel) player.destroy();
-  });
-client.commands = new Discord.Collection();
+  .on("playerMove", (player, oldChannel, newChannel) => if (!newChannel) player.destroy());
 
 client.once("ready", () => {
   console.log("Bot ready!");
