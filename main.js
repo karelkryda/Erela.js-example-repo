@@ -1,6 +1,5 @@
 // Node modules import
 const Discord = require("discord.js");
-const bootconfig = require("./config.json");
 const fs = require("fs");
 const { join } = require("path");
 const { Manager } = require("erela.js");
@@ -11,12 +10,8 @@ const client = new Discord.Client();
 client.manager = new Manager({
   // Pass an array of node. Note: You do not need to pass any if you are using the default values (ones shown below).
   nodes: [
-    // If you pass a object like so the "host" property is required
-    {
-      host: bootconfig.lavalink_host,
-      port: bootconfig.lavalink_port,
-      password: bootconfig.lavalink_password,
-    },
+    { host: 'URL', port: PORT, password: 'PASSWORD' },
+    { host: 'URL', port: PORT, password: 'PASSWORD' },
   ],
   // A send method to send data to the Discord WebSocket using your library.
   // Getting the shard for the guild and sending the data to the WebSocket.
@@ -52,10 +47,21 @@ client.once("ready", () => {
   client.user.setPresence({
     status: "online",
     activity: {
-      name: "/help",
+      name: "e!help",
       type: "LISTENING"
     }
   });
+  
+  setInterval(() => {
+    //Automatic presence renew
+    client.user.setPresence({
+      status: "online",
+      activity: {
+        name: "e!help",
+        type: "LISTENING"
+      }
+    });
+  }, 43200000);
 });
 
 const commandFiles = fs.readdirSync(join(__dirname, "commands")).filter((file) => file.endsWith(".js"));
@@ -69,7 +75,7 @@ client.on("message", async message => {
     message.content = message.content.replace(/\s+/g, ' ').trim();
     if (message.author.bot) return;
 
-    let prefix = "/"
+    let prefix = "e!"
     var serverQueue = client.manager.players.get(message.guild.id);
 
     if (!message.content.startsWith(prefix)) return;
@@ -79,7 +85,7 @@ client.on("message", async message => {
     const command = client.commands.get(message.content.split(' ')[0]) || client.commands.find((cmd) => cmd.help.aliases && cmd.help.aliases.includes(message.content.split(' ')[0]));
 
     if (!command) return;
-    if (command.requirements.ownerOnly && message.author.id !== 123456789) return message.channel.send('This command is for owner only...');
+    if (command.requirements.ownerOnly && message.author.id !== 123456789) return message.channel.send('This command is for owner only...'); //set you'
     if (command.requirements.userConnection && !message.member.voice.channel) return message.channel.send("You have to be in a voice channel to use this command");
 
     await command.run(message, prefix, serverQueue, client); //PUT YOUR VARIABLES HERE
@@ -92,4 +98,4 @@ client.on("message", async message => {
 client.on("raw", (d) => client.manager.updateVoiceState(d));
 
 // Start bot
-client.login(bootconfig.token);
+client.login("BOT_TOKEN_HERE").catch(error => console.error(error.stack || error));
