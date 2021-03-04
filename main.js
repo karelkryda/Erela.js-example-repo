@@ -85,7 +85,7 @@ client.on("message", async message => {
     const command = client.commands.get(message.content.split(' ')[0]) || client.commands.find((cmd) => cmd.help.aliases && cmd.help.aliases.includes(message.content.split(' ')[0]));
 
     if (!command) return;
-    if (command.requirements.ownerOnly && message.author.id !== 123456789) return message.channel.send('This command is for owner only...'); //set you'
+    if (command.requirements.ownerOnly && message.author.id !== 123456789) return message.channel.send('This command is for owner only...'); //set you're Discord ID instead of 123456789
     if (command.requirements.userConnection && !message.member.voice.channel) return message.channel.send("You have to be in a voice channel to use this command");
 
     await command.run(message, prefix, serverQueue, client); //PUT YOUR VARIABLES HERE
