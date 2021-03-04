@@ -31,6 +31,8 @@ module.exports.run = async (message, prefix, serverQueue, client) => {
         case "LOAD_FAILED":
             return message.channel.send(`This song cannot be loaded`);
     }
+    
+    client.channels.cache.get(serverQueue.textChannel).send(`Playing **${res.tracks[0].title}**`);
 }
 
 module.exports.help = {
