@@ -1,6 +1,8 @@
 module.exports = {
     secToTimestamp,
-    progressBar
+    progressBar,
+    isBotConnected,
+    isBotInSameChannel
 }
 
 function secToTimestamp(time) {
@@ -28,4 +30,14 @@ function progressBar(percent) {
             str += "▬";
     }
     return str;
+}
+
+function isBotConnected(message, serverQueue) {
+    if (!serverQueue) message.channel.send('I am not connected to a voice channel');
+    return (serverQueue);
+}
+
+function isBotInSameChannel(message, serverQueue) {
+    if (serverQueue.voiceChannel != message.member.voice.channel) message.channel.send("You must be in the same voice channel in which bot is");
+    return (serverQueue.voiceChannel == message.member.voice.channel);
 }
