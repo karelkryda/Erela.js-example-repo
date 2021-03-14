@@ -34,7 +34,7 @@ client.manager = new Manager({
 
     player.destroy();
   })
-  .on("playerMove", (player, oldChannel, newChannel) => if (!newChannel) player.destroy());
+  .on("playerMove", (player, oldChannel, newChannel) => { if (!newChannel) player.destroy() });
 
 client.once("ready", () => {
   console.log("Bot ready!");
